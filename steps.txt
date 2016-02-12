@@ -1,0 +1,98 @@
+rails g controller rooms show
+
+config/routes:
+root to: 'rooms#show'
+
+start rails s
+
+rails g model message content:text
+rails db:migrate
+
+RoomsController#show: @messages = Message.all
+
+mkdir app/views/messages
+touch app/views/messages/_message.html.erb
+
+<div class="message">
+  <p><%= message.content %></p>
+</div>
+
+# app/rooms/show
+<h1>Chat room</h1>
+
+<div id="messages">
+  <%= render @messages %>
+</div>
+
+rails c
+Message.create content: "¡Hola Barcelona!"
+exit
+
+rails g channel
+rails g channel room speak
+
+turn on 2 things:
+cable.coffee: uncomment App etc
+config/routes: mount cable
+
+in browser console:
+App.cable
+App.room.speak()
+
+coffee:
+- speak take param and pass it message:message
+
+channel:
+- make speak accept data
+ActionCable.server.broadcast "room_channel", message: data["message"]
+- subscribed
+stream_from 'room_channel'
+
+coffee:
+received(data) -> alert data["message"]
+
+RESTART SERVER!
+
+web browser reconnects automatically but we need to reload to get the js
+
+App.room.speak("Hello there!")
+
+<form>
+  <label>Say something</label><br>
+  <input type="text" data-behaviour="room_speaker">
+</form>
+
+Define that behaviour in same coffee file
+
+$(document).on "keypress", "[data-behaviour~=room_speaker]", (event) ->
+    if event.keyCode is 13 # return => send
+        App.room.speak event.target.value
+        event.target.value = ""
+        event.preventDefault()
+
+# back to channel
+def speak(data)
+  Message.create! content: data["message"]
+end
+
+# Message model
+after_create_commit { MessageBroadcastJob.perform_later(self) }
+
+rails g job MessageBroadcast
+
+# MessageBroadcastJob:
+
+def perform(message)
+  ActionCable.server.broadcast "room_channel", message: render_message(message)
+end
+
+private \
+def render_message(message)
+  ApplicationController.renderer.render(partial: "messages/message", locals: {message: message})
+end
+
+TEST
+
+# coffee
+
+$('#messages').append data["message"]
