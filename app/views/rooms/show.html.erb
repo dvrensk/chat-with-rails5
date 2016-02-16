@@ -1,10 +1,10 @@
 <h1>Chat room</h1>
 
+<form>
+	<label>Say something:</label><br>
+	<input type="text" data-behaviour="room_speaker" autofocus="on">
+</form>
+
 <div id="messages">
 	<%= render @messages %>
 </div>
-
-<form>
-	<label>Say something:</label><br>
-	<input type="text" data-behaviour="room_speaker">
-</form>
