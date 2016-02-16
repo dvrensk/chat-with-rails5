@@ -17,3 +17,6 @@ this without help, feel free to stop reading here.
   room implementation details for later.
 * Remember that ActionCable classes do not reload automatically.  You will need to
   restart the server quite often.
+* Until Rails 5 is released, ActionCable will not be documented at the usual places.
+  Look at [https://github.com/rails/rails/tree/master/actioncable]() for a good
+  introduction.  (You won't be able to solve this exercise without some API info.)
