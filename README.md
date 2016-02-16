@@ -1,24 +1,24 @@
-## README
+# Chatting with Rails 5
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This repo documents step by step how to build the chat application that DHH creates
+on the Rails homepage.
 
-Things you may want to cover:
+In the `exercise` branch you will find instructions for a small exercise that we are going
+to do at a meeting for the Barcelona Ruby on Rails group.  In the `multi-room` branch you'll
+find a sample solution.
 
-* Ruby version
+## To install
 
-* System dependencies
+```bash
+git clone git@github.com:sequra/chat-with-rails5.git
+cd chat-with-rails5
+bundle install
+bin/rails db:setup
+```
 
-* Configuration
+You need Ruby 2.2.2 or newer and PostgreSQL 9.x (I have only tested with `x=4`).
 
-* Database creation
+## To run
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+There are no tests or specs.  To run the application, run `rails server` and open
+a browser to [http://localhost:3000/]().
