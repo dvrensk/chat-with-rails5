@@ -1,4 +1,6 @@
-App.room = App.cable.subscriptions.create "RoomChannel",
+App.room_id = document.location.pathname.split("/").pop()
+
+App.room = App.cable.subscriptions.create { channel: "RoomChannel", room_id: App.room_id },
   connected: ->
     # Called when the subscription is ready for use on the server
 
@@ -13,6 +15,6 @@ App.room = App.cable.subscriptions.create "RoomChannel",
 
 $(document).on "keypress", "[data-behaviour~=room_speaker]", (event) ->
 	if event.keyCode is 13 # 13 is return key
-		App.room.speak event.target.value, room: document.location.pathname.split("/").pop()
+		App.room.speak event.target.value, room: App.room_id
 		event.target.value = ""
 		event.preventDefault()
