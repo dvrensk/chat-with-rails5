@@ -1,7 +1,7 @@
 # Chatting with Rails 5
 
-This repo documents step by step how to build the chat application that DHH creates
-on the Rails homepage.
+This repo documents step by step how to build the chat application that [DHH creates
+on the Rails homepage](http://rubyonrails.org/).
 
 In the `exercise` branch you will find instructions for a small exercise that we are going
 to do at a meeting for the Barcelona Ruby on Rails group.  In the `multi-room` branch you'll
